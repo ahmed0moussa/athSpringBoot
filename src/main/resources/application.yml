@@ -2,7 +2,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/
-      database: test1
+      database: scolarity
       auto-index-creation: true
   servlet:
     multipart:

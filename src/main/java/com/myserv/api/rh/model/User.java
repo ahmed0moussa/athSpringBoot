@@ -17,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -50,6 +51,11 @@ public class User {
 
     @DBRef
     private Set<Roles> roles = new HashSet<>();
+    private List<MenuItem> menuItems ;
+
+    public List<MenuItem> getMenuItems() {
+        return menuItems;
+    }
 
     public User(String jsonString) {
         try {

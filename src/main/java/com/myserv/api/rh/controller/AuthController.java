@@ -2,9 +2,11 @@ package com.myserv.api.rh.controller;
 
 import com.myserv.api.rh.auth.*;
 import com.myserv.api.rh.config.JwtUtils;
+import com.myserv.api.rh.model.MenuItem;
 import com.myserv.api.rh.model.RoleType;
 import com.myserv.api.rh.model.Roles;
 import com.myserv.api.rh.model.User;
+import com.myserv.api.rh.repository.MenuItemRepository;
 import com.myserv.api.rh.repository.RoleRepository;
 import com.myserv.api.rh.repository.UserRepository;
 import com.myserv.api.rh.services.UserDetailsImpl;
@@ -29,7 +31,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+
 public class AuthController {
     @Autowired
     AuthenticationManager authenticationManager;
@@ -45,8 +47,10 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+    @Autowired
+    private MenuItemRepository menuItemRepository;
 
-    @PostMapping("/signin")
+    @PostMapping("/api/auth/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginForm) {
         try{
             Authentication authentication = authenticationManager.authenticate(
@@ -63,14 +67,17 @@ public class AuthController {
                     jwt,
                     userDetails.getId(),
                     userDetails.getEmail(),
-                    roles));
+                    roles,
+                    userDetails.getMenuItems(),
+                    userDetails.getFirstName(),
+                    userDetails.getLastName()));
         } catch (BadCredentialsException e) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
                     .body(new MessageResponse("Invalid email or password."));
         }
     }
-    @PostMapping("/signup/user")
+    @PostMapping("/api/signup/user")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 
 
@@ -88,13 +95,14 @@ public class AuthController {
         Roles userRole = roleRepository.findByName(RoleType.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         user.getRoles().add(userRole);
-
+        List<MenuItem> menuItemList=menuItemRepository.findAll();
+        user.setMenuItems(menuItemList);
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-    @PostMapping("/signup/admin")
+    @PostMapping("/api/auth/signup/admin")
     public ResponseEntity<?> registerAdmin(@Valid @RequestBody SignupRequest signUpRequest) {
 
 

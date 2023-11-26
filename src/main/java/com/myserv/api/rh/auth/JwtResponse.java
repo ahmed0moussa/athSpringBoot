@@ -1,60 +1,31 @@
 package com.myserv.api.rh.auth;
 
-import java.util.List;
+import com.myserv.api.rh.model.MenuItem;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+@Getter
+@Setter
 public class JwtResponse {
     private String token;
     private String type = "Bearer";
     private String id;
-
+    private String firstName;
+    private String lastName;
     private String email;
     private List<String> roles;
-
-    public JwtResponse(String token, String id, String email, List<String> roles) {
+    private List<MenuItem> menuItems ;
+    public JwtResponse(String token, String id, String email, List<String> roles, List<MenuItem> menuItems, String firstName, String lastName) {
         this.token = token;
         this.id = id;
-
         this.email = email;
         this.roles = roles;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getTokenType() {
-        return type;
-    }
-
-    public void setTokenType(String tokenType) {
-        this.type = tokenType;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.menuItems=menuItems;
     }
 
 
 
-
-
-    public List<String> getRoles() {
-        return roles;
-    }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EntretienRepository extends MongoRepository <Entretien, String> {
+public interface EntretienRepository extends MongoRepository<Entretien, String> {
 
     @Query("{'specialite.id':  ?0}")
     List<Entretien> findBySpecialiteId(String specialiteId);

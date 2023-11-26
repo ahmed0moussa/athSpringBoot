@@ -26,18 +26,18 @@ public class EntretientService {
 
     private SpecialiteRepository specialiteRepository ;
 
-    private FileService fileService;
+
 
     public EntretientService(EntretienRepository entretienRepository,
                              UserRepository userRepository,
                              FeedBackRepository feedBackRepository,
-                             SpecialiteRepository specialiteRepository,
-                             FileService fileService) {
+                             SpecialiteRepository specialiteRepository
+                             ) {
         this.entretienRepository = entretienRepository;
         this.userRepository = userRepository;
         this.feedBackRepository = feedBackRepository;
         this.specialiteRepository = specialiteRepository;
-        this.fileService = fileService;
+
     }
 
     public List<FeedBack> getAllFeedbackOptions() {
