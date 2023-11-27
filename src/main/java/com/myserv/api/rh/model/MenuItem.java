@@ -18,7 +18,7 @@ public class MenuItem {
     private String label;
     private String icon;
     private String link;
-    private List<Item> SubItems;
+    private List<Item> subItems;
     private boolean active= false;
 
 }

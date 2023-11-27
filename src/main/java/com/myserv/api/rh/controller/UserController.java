@@ -1,5 +1,6 @@
 package com.myserv.api.rh.controller;
 
+import com.myserv.api.rh.model.MenuItem;
 import com.myserv.api.rh.model.User;
 import com.myserv.api.rh.services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,9 @@ public class UserController {
     @DeleteMapping("/api/users/{id}")
     public void deleteUser(@PathVariable String id) {
         this.userService.deleteById(id);
+    }
+    @PutMapping("api/users/updateMenu/{id}")
+    public List<MenuItem> updateMenu(@PathVariable String id,@RequestBody List<MenuItem> menuItems){
+        return userService.updateMenuUser(id,menuItems);
     }
 }

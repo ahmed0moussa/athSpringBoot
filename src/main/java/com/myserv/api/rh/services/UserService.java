@@ -95,7 +95,14 @@ public class UserService {
         return userRepository.save(existingUser);
 
     }
-
+    public List<MenuItem> updateMenuUser(String id,List<MenuItem> menuItems){
+        User existingUser = userRepository.findById(id).orElse(null);
+        if (existingUser != null) {
+            existingUser.setMenuItems(menuItems);
+            userRepository.save(existingUser);
+        }
+        return menuItems;
+    }
 
 
 }
